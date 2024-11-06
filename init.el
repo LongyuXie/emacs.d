@@ -49,16 +49,6 @@
                                 (diminish 'gcmh-mode))))
 (setq jit-lock-defer-time 0)
 
-;; 设置默认编码为 UTF-8
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)
-
-;; 自动加载外部修改过的文件
-(auto-revert-mode 1)
-
 (require 'init-themes)
 (require 'init-gui-frames)
 (require 'init-utils)
@@ -69,6 +59,7 @@
 (require 'init-completion)
 (require 'init-consult)
 (require 'init-project)
+(require 'init-latex)
 
 
 (provide 'init)

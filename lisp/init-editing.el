@@ -1,5 +1,12 @@
 ;;; init-editing.el --- init editing config -*- lexical-binding: t -*-
 
+;; 设置默认编码为 UTF-8
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
+
 (use-package smartparens-mode
   :straight smartparens  ;; install the package
   :diminish smartparens-mode
@@ -47,6 +54,10 @@
 (setq select-enable-clipboard t)
 
 
+;; 自动加载外部修改过的文件
+(auto-revert-mode 1)
+
+;; 高亮配对括号
 (show-paren-mode t)
 (blink-cursor-mode -1)
 

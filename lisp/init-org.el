@@ -49,7 +49,7 @@
       `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
          "* TODO %?\n   %U\n" :clock-resume t)
         ("n" "note" entry (file "")
-         "* %? :NOTE:\n   %U\n%a\n" :clock-resume t)
+         "* %? :NOTE:\n  %U\n%a\n" :clock-resume t)
         ))
 
 
@@ -136,11 +136,8 @@
 
 ;; org mode keybindings
 (with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-c p") 'org-insert-image))
-
-
-;; (global-set-key (kbd "C-c p") 'org-insert-image)
-;; (global-set-key (kbd "C-M-p") 'org-display-inline-images)
+  (define-key org-mode-map (kbd "M-c t") 'org-display-inline-images)
+  (define-key org-mode-map (kbd "M-c p") 'Org-insert-image))
 
 
 
@@ -161,7 +158,16 @@
   ;; If using org-roam-protocol
   (require 'org-roam-protocol))
 
+
+;; ensure the week days are in English
 (setq system-time-locale "C")
 (setq org-time-stamp-formats '("<%Y-%m-%d %a %H:%M>" . "%Y-%m-%d %a %H:%M>"))
+
+
+;; custom functions
+(defun ly-inbox ()
+  "Open the inbox file."
+  (interactive)
+  (find-file org-default-notes-file))
 
 (provide 'init-org)
