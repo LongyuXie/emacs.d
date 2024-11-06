@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:begin
+# key:beg
+# --
+#+begin_${1:comment}
+$0
+#+end_$1

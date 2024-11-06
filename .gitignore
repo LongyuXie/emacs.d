@@ -1,0 +1,10 @@
+.org-id-locations
+bookmarks
+auto-save-list/
+.cache/
+org-persist/
+straight/
+url/
+org-roam.db
+projectile-bookmarks.eld
+projectile.cache

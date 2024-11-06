@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:metadata
+# key:meta
+# --
+#+title:     ${1:`(file-name-sans-extension (file-name-nondirectory buffer-file-name))`}
+#+author:    ${2:`(user-login-name)`}
+#+email:     ${3:1308963950@qq.com}
+#+date:      ${4:`(format-time-string "%Y-%m-%d %a")`}

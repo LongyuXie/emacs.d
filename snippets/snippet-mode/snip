@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ${1:name}
+# key: ${2:key}
+# --
+${3:content}
