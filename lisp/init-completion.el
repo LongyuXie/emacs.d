@@ -18,7 +18,7 @@
 
 ;; (define-prefix-command 'my-corfu-cape-map)
 ;; (global-set-key (kbd "A-c") 'my-corfu-cape-map)
-(setq cape-dict-file "~/.emacs.d/dict/en_cn.txt")
+(setq cape-dict-file "~/.emacs.d/dict/words.txt")
 ;; Add extensions
 (use-package cape
   ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
