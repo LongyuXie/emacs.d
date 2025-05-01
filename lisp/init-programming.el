@@ -1,5 +1,7 @@
 
 (use-package kotlin-mode)
+(use-package json-mode)
+(use-package rust-mode)
 
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)

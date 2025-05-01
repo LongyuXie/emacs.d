@@ -46,11 +46,16 @@
 
 ;;; Capturing
 (setq org-capture-templates
-      `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
-         "* TODO %?\n   %U\n" :clock-resume t)
-        ("n" "note" entry (file "")
-         "* %? :NOTE:\n  %U\n%a\n" :clock-resume t)
-        ))
+      `(
+	("t" "task" entry (file "")
+	 "* TODO %?\n  SCHEDULED: %t\n%i\n" :empty-lines 1)
+	("d" "todo" entry (file "")  ; "" => `org-default-notes-file'
+	 "* TODO %?\n  %U\n" :clock-resume t)
+	("n" "note" entry (file "")
+	 "* %? :NOTE:\n  %U\n\n" :clock-resume t)
+	("j" "journal" entry (file+olp+datetree "~/Sync/orgfiles/journal.org")
+	 "* %U - %^{heading}\n  %?")
+	))
 
 
 ;;; Refiling
@@ -82,32 +87,32 @@
 (setq org-archive-mark-done nil)
 (setq org-archive-location "%s_archive::* Archive")
 
+(setq org-default-notes-file "~/Sync/inbox.org")
+(setq org-agenda-files '("~/Sync/inbox.org" "~/Sync/orgfiles/"
+			 "~/Sync/orgfiles/week"
+			 ))
+
+(defun ensure-directory-exists (directory)
+  "Create DIRECTORY if it doesn't exist."
+  (unless (file-exists-p directory)
+    (make-directory directory t))) ; t means create parent directories if needed
 ;;; Ensure files and directories exist
 (defun ensure-file-exists (file)
   "Create FILE if it doesn't exist."
   (unless (file-exists-p file)
     (make-empty-file file)))
 
-(defun ensure-directory-exists (directory)
-  "Create DIRECTORY if it doesn't exist."
-  (unless (file-exists-p directory)
-    (make-directory directory t))) ; t means create parent directories if needed
-
 (defun ensure-org-directories ()
   "Ensure all required org directories exist."
-  (let ((directories '("~/orgfiles"
-                      "~/orgfiles/week"
-                      "~/org-roam")))
-    (dolist (dir directories)
-      (ensure-directory-exists dir))))
+    (dolist (dir org-agenda-files)
+      (ensure-directory-exists dir))
+    )
 
 ;; Create required files and directories
-(ensure-file-exists "~/inbox.org")
+(ensure-file-exists org-default-notes-file)
 (ensure-org-directories)
 
-(setq org-default-notes-file "~/inbox.org")
-(setq org-agenda-files '("~/inbox.org" "~/orgfiles/"
-			 "~/orgfiles/week"))
+(ensure-directory-exists "~/Sync/org-roam")
 
 
 (defun org-insert-image ()
@@ -137,13 +142,15 @@
 ;; org mode keybindings
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-c t") 'org-display-inline-images)
-  (define-key org-mode-map (kbd "M-c p") 'Org-insert-image))
+  (define-key org-mode-map (kbd "M-c p") 'org-insert-image))
 
 
 
 (use-package org-roam
+  :straight t
   :custom
-  (org-roam-directory (file-truename "~/org-roam"))
+  (org-roam-directory (file-truename "~/Sync/org-roam"))
+  ;; (setq org-roam-directory "~/orgfiles/org-roam")
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
@@ -163,11 +170,45 @@
 (setq system-time-locale "C")
 (setq org-time-stamp-formats '("<%Y-%m-%d %a %H:%M>" . "%Y-%m-%d %a %H:%M>"))
 
+(use-package htmlize)
 
 ;; custom functions
 (defun ly-inbox ()
   "Open the inbox file."
   (interactive)
   (find-file org-default-notes-file))
+;; Toggle fontifications
+(defun ly/org-toggle-emphasis-markers (&optional arg)
+  "Toggle emphasis markers."
+  (interactive "p")
+  (let ((markers org-hide-emphasis-markers))
+    (if markers
+        (setq-local org-hide-emphasis-markers nil)
+      (setq-local org-hide-emphasis-markers t))
+    (when arg
+      (font-lock-fontify-buffer))))
+
+(defun ly/org-toggle-link-display (&optional arg)
+  "Toggle the literal or descriptive display of links in the current buffer."
+  (interactive "p")
+  (if org-link-descriptive (remove-from-invisibility-spec '(org-link))
+    (add-to-invisibility-spec '(org-link)))
+  (setq-local org-link-descriptive (not org-link-descriptive))
+  (when arg
+    (font-lock-fontify-buffer)))
+
+(defun ly/org-toggle-fontifications (&optional arg)
+  "Toggle emphasis markers or the link display.
+
+Without a C-u argument, toggle the emphasis markers.
+
+With a C-u argument, toggle the link display."
+  (interactive "P")
+  (let ((markers org-hide-emphasis-markers)
+        (links org-link-descriptive))
+    (if arg
+        (ly/org-toggle-link-display)
+      (ly/org-toggle-emphasis-markers))
+    (font-lock-fontify-buffer)))
 
 (provide 'init-org)

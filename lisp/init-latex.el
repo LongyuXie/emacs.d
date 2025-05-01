@@ -24,6 +24,10 @@
 ;; 如果 cdlatex 没有安装，则进行安装
 ;; (install-package-if-not-found 'cdlatex)
 
+;; 编译工具链 xelatex -> bibtex -> xelatex -> xelatex
+(add-to-list 'TeX-command-list '("xe-bib-xe2" "xelatex -interaction=nonstopmode -synctex=1 %s && bibtex %s && xelatex -interaction=nonstopmode -synctex=1 %s && xelatex -interaction=nonstopmode -synctex=1 %s" TeX-run-command nil t :help "Run XeLaTeX and BibTeX"))
+;; pdflatex -> bibtex -> pdflatex -> pdflatex
+(add-to-list 'TeX-command-list '("pdf-bib-pdf2" "pdflatex -interaction=nonstopmode -synctex=1 %s && bibtex %s && pdflatex -interaction=nonstopmode -synctex=1 %s && pdflatex -interaction=nonstopmode -synctex=1 %s" TeX-run-command t t :help "Run PDFLaTeX and BibTeX"))
 ;; 在 LaTeX 模式被启用时，启用 cdlatex
 (use-package cdlatex
   :straight t

@@ -14,11 +14,13 @@
    )
   :init
   (global-corfu-mode)
+  :config
+  (keymap-unset corfu-map "TAB")
   )
 
 ;; (define-prefix-command 'my-corfu-cape-map)
 ;; (global-set-key (kbd "A-c") 'my-corfu-cape-map)
-(setq cape-dict-file "~/.emacs.d/dict/words.txt")
+;; (setq cape-dict-file "~/.emacs.d/dict/words.txt")
 ;; Add extensions
 (use-package cape
   ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
@@ -37,7 +39,7 @@
   ;; first function returning a result wins.  Note that the list of buffer-local
   ;; completion functions takes precedence over the global list.
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
-  (add-hook 'completion-at-point-functions #'cape-dict)
+  ;; (add-hook 'completion-at-point-functions #'cape-dict)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-elisp-block)
   ;; (add-hook 'completion-at-point-functions #'cape-history)
@@ -59,30 +61,9 @@
 
 (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
 
-;; (define-key corfu-map [tab] nil)
-;; (define-key corfu-map "\t" nil)
 
-(use-package jsonrpc)
+;; (use-package jsonrpc)
 (use-package editorconfig)
-(use-package copilot
-  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-  :hook (
-	 (text-mode . copilot-mode)
-	 (prog-mode . copilot-mode))
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)
-              ("C-n" . 'copilot-next-completion)
-              ("C-p" . 'copilot-previous-completion))
-
-  :config
-  (add-to-list 'copilot-indentation-alist '(prog-mode 4))
-  (add-to-list 'copilot-indentation-alist '(org-mode 4))
-  (add-to-list 'copilot-indentation-alist '(text-mode 4))
-  (add-to-list 'copilot-indentation-alist '(closure-mode 4))
-  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 4)))
 
 (provide 'init-completion)
 

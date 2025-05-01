@@ -1,6 +1,6 @@
 
 (use-package projectile)
-(setq projectile-project-search-path '("~/workspace/"))
+;; (setq projectile-project-search-path '("~/workspace/"))
 
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
