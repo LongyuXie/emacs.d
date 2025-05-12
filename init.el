@@ -52,13 +52,17 @@
                                 (diminish 'gcmh-mode))))
 (setq jit-lock-defer-time 0)
 
+;; 设置窗口分割偏好为垂直分割（竖屏）
+(setq split-height-threshold nil)  ;; 不根据高度自动分割
+(setq split-width-threshold 0)     ;; 总是优先水平分割（产生上下窗口）
+
 (require 'init-themes)
 (require 'init-gui-frames)
 (require 'init-utils)
 (require 'init-editing)
 (require 'init-org)
 (require 'init-evil)
-;; (require 'init-programming)
+(require 'init-programming)
 (require 'init-completion)
 ;; (require 'init-consult)
 ;; (require 'init-project)
@@ -67,18 +71,11 @@
 
 
 ;; 在你的init.el文件最开始添加
-
-
-
-
+(require 'init-custom)
+(require 'init-blog)
 ;; (use-package request)
 ;; (require 'lyblog)
 ;; (require 'lycard)
 ;; (require 'leetcode)
-
-;; 设置窗口分割偏好为垂直分割（竖屏）
-(setq split-height-threshold nil)  ;; 不根据高度自动分割
-(setq split-width-threshold 0)     ;; 总是优先水平分割（产生上下窗口）
-
 
 (provide 'init)

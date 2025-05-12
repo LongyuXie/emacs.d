@@ -45,8 +45,8 @@
   (cond ((eq system-type 'windows-nt)
          ;; TODO: check if rime is current input method
          ;;  win11 rime status is opposite to other input method, e.g. sougou, microsoft pinyin
-         (w32-set-ime-open-status t)
-         (message "IME disabled")
+         ;; (w32-set-ime-open-status t)
+         ;; (message "IME disabled")
          )
         ((eq system-type 'gnu/linux)
          (shell-command "fcitx5-remote -c"))

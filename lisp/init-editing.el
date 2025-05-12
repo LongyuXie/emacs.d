@@ -17,24 +17,9 @@
 
 (setq delete-trailing-lines nil)
 
-;; (use-package whitespace
-;;   :ensure nil
-;;   :config
-;;   (delete 'lines whitespace-style)
-;;   (delete 'newline-mark whitespace-style)
-;;   (bind-key* (kbd "<f7>") #'(lambda ()
-;;                               (interactive)
-;;                               (whitespace-mode 'toggle))))
-;; edit surround pairs
-
-;; (use-package rainbow-delimiters
-;;   :hook (prog-mode text-mode markdown-mode))
-
-
 (setq-default show-trailing-whitespace nil)
 
 
-;;; Whitespace
 
 (defun show-trailing-whitespace ()
   "Enable display of trailing whitespace in this buffer."
@@ -43,14 +28,6 @@
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook 'show-trailing-whitespace))
 
-;; (use-package 'whitespace-cleanup-mode
-;;              :straight t)
-
-;; (add-hook 'after-init-hook 'global-whitespace-cleanup-mode)
-;; (with-eval-after-load 'whitespace-cleanup-mode
-;;   (diminish 'whitespace-cleanup-mode))
-;;
-;; (global-set-key [remap just-one-space] 'cycle-spacing)
 (setq select-enable-clipboard t)
 
 

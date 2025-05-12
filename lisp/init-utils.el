@@ -160,7 +160,7 @@ BUFFER and ALIST are as for `display-buffer-full-frame'."
         (goto-char (point-min))
         (while (search-forward (car pair) nil t)
           (replace-match (cdr pair) nil t)))
-      (delete-trailling-whitespace))))
+      (whitespace-cleanup))))
 
 (use-package which-key
   :custom (which-key-idle-delay 0.5) ; 延迟时间, 以秒为单位
